@@ -64,23 +64,6 @@ int main() {
 
 
     generateTable(table);
-    // table[0][0] = 0;
-    // table[0][1] = 1;
-    // table[0][2] = 0;
-    // table[1][0] = 0;
-    // table[1][1] = 0;
-    // table[1][2] = 1;
-    // table[2][0] = 1;
-    // table[2][1] = 1;
-    // table[2][2] = 1;
-     for (int i = 0; i < TABLE_SIZE; i++)
-        {
-            for (int j = 0; j < TABLE_SIZE; j++)
-            {
-                printf("%d\t", table[i][j]);
-            }
-            printf("\n");
-        }
     while( !quit ) {
         SDL_Delay(10);
         while( SDL_PollEvent( &e ) != 0 ) {
@@ -123,12 +106,6 @@ int main() {
         {
             for (int j = 0; j < TABLE_SIZE; j++)
             {
-                // for (int k = 2; k > 1; k--)
-                // {
-                //     // table_history[k][i][j] = table_history[k-1][i][j];
-                //     // printf("%d\n", k);
-                // table_history[1][i][j] = table_history[0][i][j];
-                // }
                 table_history[2][i][j] = table_history[1][i][j];
                 table_history[1][i][j] = table_history[0][i][j];
                 table_history[0][i][j] = table[i][j];
@@ -145,9 +122,7 @@ int main() {
             for (int j = 0; j < TABLE_SIZE; j++)
             {
                 is_live += table[i][j];
-                printf("%d\t", table[i][j]);
             }
-            printf("\n");
         }
 
         if(is_live == 0) {
@@ -155,35 +130,9 @@ int main() {
             SDL_Delay(3000);
             Mix_FreeMusic(bg_mus);
             Mix_PlayChannel(-1, loose, 0);
-            printf("Game over\n");
+            // printf("Game over\n");
             quit = true;
         }
-
-        // for (int k = 1; k < HISTORY_LIMIT; k++)
-        // {
-        //     similar = 0;
-            
-        //     for (int i = 0; i < TABLE_SIZE; i++)
-        //     {
-        //         for (int j = 0; j < TABLE_SIZE; j++)
-        //         {
-        //             if(table_history[k][i][j] == table[i][j]) {
-        //                 similar++;
-        //             }
-        //         }
-        //     }
-        //     printf("k=%d\n", k);
-        //     printf("%d\n", similar);
-        //     if(similar == TABLE_SIZE * TABLE_SIZE) {
-        //         showGameOver(renderer, font);
-        //         Mix_FreeMusic(bg_mus);
-        //         Mix_PlayChannel(-1, loose, 0);
-        //         SDL_Delay(3000);
-        //         quit = true;
-        //         break;
-        //     }
-        // }
-        
 
         similar = 0;
         for (int i = 0; i < TABLE_SIZE; i++)
@@ -266,12 +215,10 @@ void printTable(SDL_Renderer *renderer, int (*table)[TABLE_SIZE]) {
     {
         for (int j = 0; j < TABLE_SIZE; j++)
         {
-            // printf("%d ", table[i][j]);
             if(table[i][j]) {
                 drawRect(renderer, CELL_SIZE * j, CELL_SIZE * i);
             }
         }
-        // printf("\n");   
     }
 }
 
